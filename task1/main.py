@@ -1,9 +1,7 @@
 import os
 import shutil
 from pathlib import Path
-
-source_dir = r"./task1/source_directory"
-destination_dir = r"./task1/destination_directory"
+import argparse
 
 
 def add_file_prefix(file_path):
@@ -42,4 +40,14 @@ def copyfiles(src_dir, dst_dir):
 
 
 if __name__ == "__main__":
-    copyfiles(Path(source_dir), Path(destination_dir))
+    parser = argparse.ArgumentParser(description="Копіювання та стуктуризація файлів.")
+    parser.add_argument("source_dir", help="Вихідна тека з файлами.")
+    parser.add_argument(
+        "destination_dir",
+        nargs="?",
+        default="dist",
+        help="Вихідна тека для створення стуктури з файлів по розширенню. За замовченням dist.",
+    )
+
+    args = parser.parse_args()
+    copyfiles(Path(args.source_dir), Path(args.destination_dir))
